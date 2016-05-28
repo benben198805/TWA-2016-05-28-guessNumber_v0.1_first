@@ -1,17 +1,20 @@
-function decodeTags(tags) {
-    var decodeTags = [];
-    tags.forEach(function (element) {
-        if (element.indexOf("-") > 0) {
-            var splitedArray = element.split('-');
-            var num = parseInt(splitedArray[1]) || 0;
-            for (var i = 0; i < num; i++) {
-                decodeTags.push(splitedArray[0]);
+function checkRandom(randomNumber) {
+    for (var index = 0; index < 4; index++) {
+        for(var target=index+1;target<4;target++){
+            if(randomNumber[index]==randomNumber[target]){
+                return false;
             }
-        } else {
-            decodeTags.push(element);
         }
-    });
-    return decodeTags;
+    }
+    return true;
+}
+
+function makeRandom() {
+    var randomNumber = Math.round(Math.random()*1000);
+    while (!checkRandmo(randomNumber)){
+        randomNumber = Math.round(Math.random()*1000);
+    }
+    return randomNumber;
 }
 
 function mergeTag(decodeTags) {
@@ -72,7 +75,7 @@ function calculateFreeTotal(billItems) {
         return {
             freeSubtotal: a.freeSubtotal + b.freeSubtotal
         };
-    },{freeSubtotal:0}).freeSubtotal;
+    }, { freeSubtotal: 0 }).freeSubtotal;
 }
 
 function calculateTotal(billItems) {
@@ -80,7 +83,7 @@ function calculateTotal(billItems) {
         return {
             subtotal: a.subtotal + b.subtotal
         };
-    },{subtotal:0}).subtotal;
+    }, { subtotal: 0 }).subtotal;
 }
 
 function getFreeItem(billItems) {
